@@ -24,6 +24,10 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 # Inherit from sdm845-common
 $(call inherit-product, device/xiaomi/sdm845-common/sdm845.mk)
 
+# Device fstab
+PRODUCT_PACKAGES += \
+    fstab.qcom
+
 # Input
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/NVTCapacitiveTouchScreen.kl:system/usr/keylayout/NVTCapacitiveTouchScreen.kl \
