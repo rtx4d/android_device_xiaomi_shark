@@ -13,6 +13,7 @@ fi
 
 set -e
 
+# Required!
 export DEVICE=shark
 export DEVICE_COMMON=sdm845-common
 export VENDOR=xiaomi
