@@ -1,2 +1,5 @@
 # Bluetooth
 bluetooth.device.default_name=Xiaomi Black Shark 
+
+# USB
+vendor.usb.product_string=Xiaomi Black Shark
