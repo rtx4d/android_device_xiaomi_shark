@@ -70,3 +70,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/NVTCapacitiveTouchScreen.kl:system/usr/keylayout/NVTCapacitiveTouchScreen.kl \
     $(LOCAL_PATH)/keylayout/fpcsensor.kl:system/usr/keylayout/fpcsensor.kl \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
