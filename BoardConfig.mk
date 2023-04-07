@@ -27,7 +27,8 @@ TARGET_KERNEL_SOURCE := kernel/msm-4.9
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
 # Recovery
+BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 
 # Inherit from the proprietary version
--include vendor/xiaomi/shark/BoardConfigVendor.mk
+include vendor/xiaomi/shark/BoardConfigVendor.mk

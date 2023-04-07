@@ -7,7 +7,25 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product, vendor/xiaomi/perseus/perseus-vendor.mk)
+$(call inherit-product, vendor/xiaomi/shark/shark-vendor.mk)
+
+# A/B
+AB_OTA_UPDATER := true
+
+AB_OTA_PARTITIONS += \
+    boot \
+    system \
+    vbmeta \
+    vendor
+
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+
+PRODUCT_PACKAGES += \
+    otapreopt_script
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -23,6 +41,33 @@ PRODUCT_COPY_FILES += \
 TARGET_SCREEN_HEIGHT := 2160
 TARGET_SCREEN_WIDTH := 1080
 
+# Treble
+PRODUCT_USE_VNDK_OVERRIDE := true
+
+# Inherit from sdm845-common
+$(call inherit-product, device/xiaomi/sdm845-common/sdm845.mk)
+
+# Boot control
+PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0-impl:64 \
+    android.hardware.boot@1.0-service \
+    android.hardware.boot@1.0-impl.recovery \
+    bootctrl.sdm845 \
+    bootctrl.sdm845.recovery
+
+PRODUCT_PACKAGES_DEBUG += \
+    bootctl
+
+# Device fstab
+PRODUCT_PACKAGES += \
+    fstab.qcom
+
+# Input
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/NVTCapacitiveTouchScreen.kl:system/usr/keylayout/NVTCapacitiveTouchScreen.kl \
+    $(LOCAL_PATH)/keylayout/fpcsensor.kl:system/usr/keylayout/fpcsensor.kl \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
@@ -36,15 +81,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# Inherit from sdm845-common
-$(call inherit-product, device/xiaomi/sdm845-common/sdm845.mk)
-
-# Device fstab
+# Update engine
 PRODUCT_PACKAGES += \
-    fstab.qcom
+    update_engine \
+    update_engine_sideload \
+    update_verifier
 
-# Input
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/NVTCapacitiveTouchScreen.kl:system/usr/keylayout/NVTCapacitiveTouchScreen.kl \
-    $(LOCAL_PATH)/keylayout/fpcsensor.kl:system/usr/keylayout/fpcsensor.kl \
-    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
