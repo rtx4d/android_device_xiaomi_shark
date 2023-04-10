@@ -62,6 +62,10 @@ PRODUCT_PACKAGES_DEBUG += \
 PRODUCT_PACKAGES += \
     fstab.qcom
 
+# Device init scripts
+PRODUCT_PACKAGES += \
+    init.target.rc
+
 # Input
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/NVTCapacitiveTouchScreen.kl:system/usr/keylayout/NVTCapacitiveTouchScreen.kl \
@@ -94,3 +98,6 @@ PRODUCT_PACKAGES_DEBUG += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
+
+# Get non-open-source specific aspects
+$(call inherit-product, vendor/xiaomi/shark/shark-vendor.mk)
