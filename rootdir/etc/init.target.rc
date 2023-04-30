@@ -75,6 +75,28 @@ on fs
     on property:sys.tp.grip_enable=180
         write sys/bus/i2c/devices/3-0049/grip_area 30
 
+#wade add iris2p dev
+on boot
+    chown system system /dev/iris2p
+    chmod 0666 /dev/iris2p
+    chown root system /sys/devices/virtual/misc/iris2p/iris2p_func_status
+    chown root system /sys/devices/virtual/misc/iris2p/iris2p_pt_power
+    chown root system /sys/devices/virtual/misc/iris2p/memc_status
+    chown root system /sys/devices/virtual/misc/iris2p/iris2p_firmware
+    chmod 0444 /sys/devices/virtual/misc/iris2p/iris2p_func_status
+    chmod 0664 /sys/devices/virtual/misc/iris2p/iris2p_pt_power
+    chmod 0444 /sys/devices/virtual/misc/iris2p/memc_status
+    chmod 0664 /sys/devices/virtual/misc/iris2p/iris2p_firmware
+
+on post-fs-data
+    mkdir /data/vendor/bslogs/touch 0777 system system
+    mkdir /data/vendor/display/firmware 0777 system system
+    chmod 0777 /data/vendor/bslogs/touch
+    chmod 0777 /data/vendor/display/firmware/MCF.bin
+    chmod 0777 /data/vendor/display/firmware/iris2p_ccf1.fw
+    chmod 0777 /data/vendor/display/firmware/iris2p_ccf2.fw
+    chmod 0777 /data/vendor/display
+
 on charger
     write /sys/module/msm_thermal/parameters/enabled "N"
     symlink /dev/block/platform/soc/1d84000.ufshc /dev/block/bootdevice
