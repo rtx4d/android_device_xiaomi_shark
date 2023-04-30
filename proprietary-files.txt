@@ -236,6 +236,34 @@ vendor/etc/hdr_config.cfg
 # Display firmware (PixelWorks Iris)
 vendor/firmware/iris2p.fw
 
+# Display IRIS2P (PixelWorks Iris)
+vendor/bin/irisConfig
+vendor/bin/irisPanelCalibration
+vendor/bin/hw/vendor.pixelworks.hardware.display@1.0-service
+vendor/etc/init/vendor.pixelworks.hardware.display@1.0-service.rc
+vendor/lib/libpwirispq.so
+vendor/lib64/libpwirisPCS.so
+vendor/lib64/libpwirispq.so
+vendor/lib64/vendor.pixelworks.hardware.display@1.0_vendor.so
+vendor/firmware/inParmFile/inParm1.txt
+vendor/firmware/inParmFile/inParm10.txt
+vendor/firmware/inParmFile/inParm11.txt
+vendor/firmware/inParmFile/inParm12.txt
+vendor/firmware/inParmFile/inParm13.txt
+vendor/firmware/inParmFile/inParm14.txt
+vendor/firmware/inParmFile/inParm15.txt
+vendor/firmware/inParmFile/inParm16.txt
+vendor/firmware/inParmFile/inParm17.txt
+vendor/firmware/inParmFile/inParm2.txt
+vendor/firmware/inParmFile/inParm3.txt
+vendor/firmware/inParmFile/inParm4.txt
+vendor/firmware/inParmFile/inParm5.txt
+vendor/firmware/inParmFile/inParm6.txt
+vendor/firmware/inParmFile/inParm7.txt
+vendor/firmware/inParmFile/inParm8.txt
+vendor/firmware/inParmFile/inParm9.txt
+vendor/firmware/inParmFile/inParmRev.txt
+
 # Fingerprint
 vendor/lib64/hw/fingerprint.default.so:vendor/lib64/hw/fingerprint.goodix.sdm845.so
 vendor/lib64/libgoodixhwfingerprint.so
