@@ -56,6 +56,10 @@ PRODUCT_PACKAGES_DEBUG += \
 PRODUCT_PACKAGES += \
     fstab.qcom
 
+# Device init scripts
+PRODUCT_PACKAGES += \
+    init.target.rc
+
 # Treble
 PRODUCT_USE_VNDK_OVERRIDE := true
 
