@@ -346,6 +346,10 @@ vendor/etc/thermal-engine-encrypt.conf
 vendor/firmware/novatek_ts_fw.bin
 vendor/firmware/stm_fts_production_limits.csv
 
+# QDCM
+vendor/etc/qdcm_calib_data_nt35597_cmd_mode_dsi_truly_panel_with_DSC.xml
+vendor/etc/qdcm_calib_data_nt35597_video_mode_dsi_truly_panel_with_DSC.xml
+
 # Snapdragon Computer Vision Engine
 vendor/lib64/libscveFaceLandmarks.so
 vendor/lib64/libscveFaceRecognition.so
