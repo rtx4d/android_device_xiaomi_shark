@@ -63,6 +63,10 @@ vendor/lib/libacdbloader.so
 vendor/lib/rfsa/adsp/dirac_resource.dar
 vendor/lib/rfsa/adsp/misound_res.bin
 
+# ANT+
+vendor/lib/com.qualcomm.qti.ant@1.0.so
+vendor/lib64/com.qualcomm.qti.ant@1.0.so
+
 # Audio (speaker amplifier) firmware
 vendor/firmware/tas2559_uCDSP.bin
 
@@ -75,13 +79,11 @@ vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
 vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
 vendor/lib/com.blackshark.oeminfo@1.0.so
-vendor/lib/com.qualcomm.qti.ant@1.0.so
 vendor/lib/libbtnv.so
 vendor/lib/libsoeminfo.so
 vendor/lib/vendor.qti.hardware.fm@1.0.so
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so
 vendor/lib64/com.blackshark.oeminfo@1.0.so
-vendor/lib64/com.qualcomm.qti.ant@1.0.so
 vendor/lib64/libbtnv.so
 vendor/lib64/libsoeminfo.so
 vendor/lib64/vendor.qti.hardware.fm@1.0.so
