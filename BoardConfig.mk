@@ -17,6 +17,9 @@ BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 # Assert
 TARGET_OTA_ASSERT_DEVICE := shark
 
+# Display
+TARGET_SCREEN_DENSITY := 440
+
 # HIDL
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
