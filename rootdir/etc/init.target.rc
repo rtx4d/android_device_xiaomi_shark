@@ -96,6 +96,9 @@ on post-fs-data
     chmod 0777 /data/vendor/display/firmware/iris2p_ccf1.fw
     chmod 0777 /data/vendor/display/firmware/iris2p_ccf2.fw
     chmod 0777 /data/vendor/display
+    copy /vendor/firmware/MCF.bin /data/vendor/display/firmware/MCF.bin
+    copy /vendor/firmware/iris2p_ccf1.fw /data/vendor/display/firmware/iris2p_ccf1.fw
+    copy /vendor/firmware/iris2p_ccf2.fw /data/vendor/display/firmware/iris2p_ccf2.fw
 
 on charger
     write /sys/module/msm_thermal/parameters/enabled "N"
