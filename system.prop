@@ -1,0 +1,6 @@
+# System property for camera
+persist.vendor.camera.multicam.hwsync=TRUE
+# Enable FPS match
+persist.vendor.camera.multicam.fpsmatch=TRUE
+# Enable SW frame sync
+persist.vendor.camera.multicam.framesync=1 

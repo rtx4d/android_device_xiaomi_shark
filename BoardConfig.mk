@@ -29,6 +29,9 @@ TARGET_KERNEL_SOURCE := kernel/msm-4.9
 # Partitions
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
+# Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # Recovery
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
