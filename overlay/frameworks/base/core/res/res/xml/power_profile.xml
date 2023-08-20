@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device name="Android">
     <item name="none">0</item>
-    <item name="screen.on">49.47</item>
-    <item name="screen.full">100</item>
+    <item name="screen.on.display0">49.47</item>
+    <item name="screen.full.display0">100</item>
     <item name="bluetooth.active">6.43</item>
     <item name="bluetooth.on">0.1</item>
     <item name="bluetooth.controller.voltage">3300</item>
