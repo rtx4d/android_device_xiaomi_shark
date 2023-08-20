@@ -11,6 +11,9 @@ BUILD_BROKEN_DUP_RULES := true
 
 DEVICE_PATH := device/xiaomi/shark
 
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := shark
 
