@@ -234,7 +234,10 @@ vendor/etc/sdr_config.cfg
 vendor/etc/hdr_config.cfg
 
 # Display firmware (PixelWorks Iris)
+vendor/firmware/iris2p_ccf1.fw
+vendor/firmware/iris2p_ccf2.fw
 vendor/firmware/iris2p.fw
+vendor/firmware/MCF.bin
 
 # Display IRIS2P (PixelWorks Iris)
 vendor/bin/irisConfig
