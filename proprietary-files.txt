@@ -1,4 +1,4 @@
-# Device proprietary files - from shark' JOYUI package
+# Device proprietary files - from shark' V11.0.4.0 JOYUI package
 
 # ACDB
 vendor/etc/acdbdata/MTP/common/MTP_Bluetooth_cal.acdb
@@ -74,19 +74,13 @@ vendor/firmware/tas2559_uCDSP.bin
 vendor/etc/tas2559_l.ftcfg
 vendor/etc/tas2559_r.ftcfg
 
-# Bluetooth
+# Bluetooth - from polaris' MIUI package V12.0.3.0.QDGMIXM
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
-vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
-vendor/lib/com.blackshark.oeminfo@1.0.so
-vendor/lib/libbtnv.so
-vendor/lib/libsoeminfo.so
-vendor/lib/vendor.qti.hardware.fm@1.0.so
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so
-vendor/lib64/com.blackshark.oeminfo@1.0.so
 vendor/lib64/libbtnv.so
-vendor/lib64/libsoeminfo.so
-vendor/lib64/vendor.qti.hardware.fm@1.0.so
+vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib/libbtnv.so
 
 # Camera
 vendor/etc/camera/camerasystemlogcfg.txt
@@ -275,6 +269,10 @@ vendor/lib64/libgoodixhwfingerprint.so
 vendor/lib64/libvendor.goodix.hardware.fingerprintextension@1.0.so
 vendor/lib64/libgf_ca.so
 vendor/lib64/libgf_hal.so
+
+# FM
+vendor/lib/vendor.qti.hardware.fm@1.0.so
+vendor/lib64/vendor.qti.hardware.fm@1.0.so
 
 # GNSS
 vendor/bin/hw/android.hardware.gnss@2.0-service-qti
