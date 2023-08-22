@@ -274,6 +274,15 @@ vendor/lib64/libgf_hal.so
 vendor/lib/vendor.qti.hardware.fm@1.0.so
 vendor/lib64/vendor.qti.hardware.fm@1.0.so
 
+# Graphics (Adreno firmware)
+vendor/firmware/a630_gmu.bin
+vendor/firmware/a630_sqe.fw
+vendor/firmware/a630_zap.b00
+vendor/firmware/a630_zap.b01
+vendor/firmware/a630_zap.b02
+vendor/firmware/a630_zap.elf
+vendor/firmware/a630_zap.mdt
+
 # GNSS
 vendor/bin/hw/android.hardware.gnss@2.0-service-qti
 vendor/bin/lowi-server
