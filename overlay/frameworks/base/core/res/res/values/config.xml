@@ -138,4 +138,8 @@
          dim before the device goes to sleep.
     -->
     <fraction name="config_maximumScreenDimRatio">29.999996%</fraction>
+
+    <!-- Whether device supports double tap to wake -->
+    <bool name="config_supportDoubleTapWake">false</bool>
+
 </resources>
