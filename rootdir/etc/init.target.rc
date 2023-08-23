@@ -97,6 +97,14 @@ on post-fs-data
     chmod 0777 /data/vendor/display/firmware/iris2p_ccf2.fw
     chmod 0777 /data/vendor/display
 
+# lcd calibration
+service panelcalib /vendor/bin/irisPanelCalibration
+    class main
+    user root
+    group root
+    oneshot
+    disabled
+
 on charger
     write /sys/module/msm_thermal/parameters/enabled "N"
     symlink /dev/block/platform/soc/1d84000.ufshc /dev/block/bootdevice
