@@ -67,6 +67,34 @@ vendor/lib/rfsa/adsp/misound_res.bin
 vendor/lib/com.qualcomm.qti.ant@1.0.so
 vendor/lib64/com.qualcomm.qti.ant@1.0.so
 
+# Audio
+vendor/lib64/hw/audio.primary.sdm845.so
+vendor/lib64/libacdb-fts.so
+vendor/lib64/libacdbrtac.so
+vendor/lib64/libadiertac.so
+vendor/lib64/libaudcal.so
+vendor/lib64/libaudioalsa.so
+vendor/lib64/libaudio_log_utils.so
+vendor/lib64/libaudioparsers.so
+vendor/lib64/libcsd-client.so
+vendor/lib64/libqtigef.so
+vendor/lib/hw/audio.primary.sdm845.so
+vendor/lib/vndk/libxlog.so
+vendor/lib/libacdb-fts.so
+vendor/lib/libacdbrtac.so
+vendor/lib/libadiertac.so
+vendor/lib/libadm.so
+vendor/lib/libaudcal.so
+vendor/lib/libaudioalsa.so
+vendor/lib/libaudio_log_utils.so
+vendor/lib/libaudioparsers.so
+vendor/lib/libcsd-client.so
+vendor/lib/libqtigef.so
+
+# Audio extensions
+vendor/lib64/liba2dpoffload.so
+vendor/lib/liba2dpoffload.so
+
 # Audio (speaker amplifier) firmware
 vendor/firmware/tas2559_uCDSP.bin
 
