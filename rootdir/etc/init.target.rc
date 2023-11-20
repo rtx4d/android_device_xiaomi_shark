@@ -40,6 +40,10 @@ on boot
     chmod 0444 /sys/devices/virtual/misc/iris2p/memc_status
     chmod 0664 /sys/devices/virtual/misc/iris2p/iris2p_firmware
 
+    mkdir /data/vendor/display/firmware 0777 system system
+    copy /vendor/firmware/MCF.bin /data/vendor/display/firmware/MCF.bin
+    chmod 0777 /data/vendor/display/firmware/MCF.bin
+
 # LCD Calibration
 service panelcalib /vendor/bin/irisPanelCalibration
     class main
@@ -47,3 +51,12 @@ service panelcalib /vendor/bin/irisPanelCalibration
     group root
     oneshot
     disabled
+
+on property:ro.crypto.state=encrypted
+    start panelcalib
+
+on property:ro.boot.factoryimg=true && property:ro.crypto.state=unencrypted
+    start panelcalib
+
+on property:sys.boot_completed=1 && property:ro.crypto.state=encrypted
+    start panelcalib
