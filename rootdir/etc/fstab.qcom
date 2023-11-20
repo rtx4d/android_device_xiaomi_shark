@@ -33,9 +33,9 @@
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
 #<src>                                                 <mnt_point>               <type>  <mnt_flags and options>                              <fs_mgr_flags>
-/dev/block/bootdevice/by-name/system                    /                         ext4    ro,barrier=1,discard                                 wait,slotselect,avb
+/dev/block/by-name/system                               /system                   ext4    ro,barrier=1,discard                                 wait,slotselect,avb,first_stage_mount
 /dev/block/bootdevice/by-name/userdata                  /data                     ext4    noatime,nosuid,nodev,barrier=0,noauto_da_alloc,errors=continue latemount,wait,check,fileencryption=ice,quota
-/dev/block/bootdevice/by-name/vendor                    /vendor                   ext4    ro,barrier=1                                         wait,slotselect,recoveryonly
+/dev/block/by-name/vendor                               /vendor                   ext4    ro,barrier=1,discard                                 wait,slotselect,avb,first_stage_mount
 /dev/block/bootdevice/by-name/boot                      /boot                     emmc    defaults                                             slotselect,recoveryonly
 
  # !!!Note!!!: Use special #vendor_mount marker here to still mount them in vendor built system.img
