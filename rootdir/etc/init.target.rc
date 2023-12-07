@@ -27,6 +27,22 @@
 #
 #
 
+# S Logo
+on post-fs-data
+    chown system system /sys/rgb/leds/red_1/brightness
+    chown system system /sys/rgb/leds/green_1/brightness
+    chown system system /sys/rgb/leds/blue_1/brightness
+    chmod 0664 /sys/rgb/leds/red_1/brightness
+    chmod 0664 /sys/rgb/leds/green_1/brightness
+    chmod 0664 /sys/rgb/leds/blue_1/brightness
+
+    chown system system /sys/rgb/leds/red_1/blink
+    chown system system /sys/rgb/leds/green_1/blink
+    chown system system /sys/rgb/leds/blue_1/blink
+    chmod 0664 /sys/rgb/leds/red_1/blink
+    chmod 0664 /sys/rgb/leds/green_1/blink
+    chmod 0664 /sys/rgb/leds/blue_1/blink
+
 # PixelWorks Iris2P
 on boot
     chown system system /dev/iris2p
