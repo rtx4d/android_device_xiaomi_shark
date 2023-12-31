@@ -56,9 +56,12 @@ on boot
     chmod 0444 /sys/devices/virtual/misc/iris2p/memc_status
     chmod 0664 /sys/devices/virtual/misc/iris2p/iris2p_firmware
 
+on post-fs-data
     mkdir /data/vendor/display/firmware 0777 system system
-    copy /vendor/firmware/MCF.bin /data/vendor/display/firmware/MCF.bin
     chmod 0777 /data/vendor/display/firmware/MCF.bin
+    chmod 0777 /data/vendor/display/firmware/iris2p_ccf1.fw
+    chmod 0777 /data/vendor/display/firmware/iris2p_ccf2.fw
+    chmod 0777 /data/vendor/display
 
 # LCD Calibration
 service panelcalib /vendor/bin/irisPanelCalibration
