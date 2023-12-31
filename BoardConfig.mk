@@ -26,8 +26,8 @@ DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 # Kernel
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 BOARD_KERNEL_SEPARATED_DTBO := true
-TARGET_KERNEL_CONFIG := sdm845-perf_defconfig
-TARGET_KERNEL_SOURCE := kernel/msm-4.9
+TARGET_KERNEL_CONFIG := shark_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/shark
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
