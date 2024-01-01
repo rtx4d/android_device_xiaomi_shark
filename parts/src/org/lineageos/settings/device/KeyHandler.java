@@ -16,8 +16,8 @@
 
 package org.lineageos.settings.device;
 
+import android.app.NotificationManager;
 import android.content.Context;
-import android.media.AudioManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.KeyEvent;
@@ -32,13 +32,13 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int KEY_SLIDER_ON = 251;
 
     private final Context mContext;
-    private final AudioManager mAudioManager;
+    private final NotificationManager mNotificationManager;
     private final Vibrator mVibrator;
 
     public KeyHandler(Context context) {
         mContext = context;
 
-        mAudioManager = mContext.getSystemService(AudioManager.class);
+        mNotificationManager = mContext.getSystemService(NotificationManager.class);
         mVibrator = mContext.getSystemService(Vibrator.class);
     }
 
@@ -47,10 +47,10 @@ public class KeyHandler implements DeviceKeyHandler {
 
         switch(scanCode) {
             case KEY_SLIDER_OFF:
-                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_SILENT);
+                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
                 break;
             case KEY_SLIDER_ON:
-                mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
+                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
                 break;
             default:
                 return event;
