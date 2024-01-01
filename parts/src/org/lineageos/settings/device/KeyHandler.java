@@ -47,10 +47,16 @@ public class KeyHandler implements DeviceKeyHandler {
 
         switch(scanCode) {
             case KEY_SLIDER_OFF:
-                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
+                mNotificationManager.setNotificationPolicy(
+                    new NotificationManager.Policy(
+                        NotificationManager.Policy.PRIORITY_CATEGORY_MEDIA
+                        | NotificationManager.Policy.PRIORITY_CATEGORY_ALARMS, 0, 0
+                    )
+                );
                 break;
             case KEY_SLIDER_ON:
-                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
+                mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
                 break;
             default:
                 return event;
