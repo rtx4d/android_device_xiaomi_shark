@@ -19,7 +19,6 @@ package org.lineageos.settings.device.logo;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
@@ -36,8 +35,9 @@ import com.android.settingslib.widget.OnMainSwitchChangeListener;
 
 import org.lineageos.settings.device.R;
 
-import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.utils.SettingsUtils;
+
+import org.lineageos.settings.device.logo.LogoUtil;
 
 public class LogoFragment extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener, OnMainSwitchChangeListener,
@@ -48,14 +48,6 @@ public class LogoFragment extends PreferenceFragment implements
     public static final String KEY_LOGO_MODE_MANUAL_GREEN = "logo_control_manual_green";
     public static final String KEY_LOGO_MODE_MANUAL_BLUE = "logo_control_manual_blue";
     public static final String KEY_LOGO_MODE_BREATH = "logo_control_breath";
-
-    public static final String RED_LED = "/sys/rgb/leds/green_1/brightness";
-    public static final String GREEN_LED = "/sys/rgb/leds/red_1/brightness";
-    public static final String BLUE_LED = "/sys/rgb/leds/blue_1/brightness";
-
-    public static final String RED_LED_BLINK = "/sys/rgb/leds/green_1/blink";
-    public static final String GREEN_LED_BLINK = "/sys/rgb/leds/red_1/blink";
-    public static final String BLUE_LED_BLINK = "/sys/rgb/leds/blue_1/blink";
 
     public static final int LOGO_MODE_BREATH = 1;
     public static final int LOGO_MODE_MANUAL = 2;
@@ -69,11 +61,14 @@ public class LogoFragment extends PreferenceFragment implements
     private SeekBarPreference mLogoManualBarGreen;
     private SeekBarPreference mLogoManualBarBlue;
 
-    private String summary = null;
+    private void setSlidersVisibility(boolean state) {
+        mLogoManualBarRed.setVisible(state);
+        mLogoManualBarGreen.setVisible(state);
+        mLogoManualBarBlue.setVisible(state);
+    }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        int logoModeValue;
         addPreferencesFromResource(R.xml.logo);
 
         mSwitchBar = (MainSwitchPreference) findPreference(KEY_LOGO_ENABLE);
@@ -88,27 +83,23 @@ public class LogoFragment extends PreferenceFragment implements
         mLogoManualBarGreen.setValue(SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, 1));
         mLogoManualBarBlue = (SeekBarPreference) findPreference(KEY_LOGO_MODE_MANUAL_BLUE);
         mLogoManualBarBlue.setValue(SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, 1));
+
         mLogoManualBarRed.setOnPreferenceChangeListener(this);
         mLogoManualBarGreen.setOnPreferenceChangeListener(this);
         mLogoManualBarBlue.setOnPreferenceChangeListener(this);
 
-        if (mLogoControlMode.getValue() != null) {
-            logoModeValue = Integer.parseInt((String) mLogoControlMode.getValue());
-
-            if (logoModeValue == LOGO_MODE_BREATH) {
-                summary = getResources().getString(R.string.logo_control_breath_title);
-                mLogoManualBarRed.setVisible(false);
-                mLogoManualBarGreen.setVisible(false);
-                mLogoManualBarBlue.setVisible(false);
-            } else {
-                summary = getResources().getString(R.string.logo_control_manual_title);
-                mLogoManualBarRed.setVisible(true);
-                mLogoManualBarGreen.setVisible(true);
-                mLogoManualBarBlue.setVisible(true);
-            }
+        if (mLogoControlMode.getValue() == null) {
+            mLogoControlMode.setValue("1");
         }
 
-        mLogoControlMode.setSummary(summary);
+        final int mode = Integer.parseInt((String) mLogoControlMode.getValue());
+        if (mode == LOGO_MODE_BREATH) {
+            mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
+            setSlidersVisibility(false);
+        } else if (mode == LOGO_MODE_MANUAL) {
+            mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
+            setSlidersVisibility(true);
+        }
     }
 
     @Override
@@ -128,122 +119,66 @@ public class LogoFragment extends PreferenceFragment implements
     @Override
     public void onSwitchChanged(Switch switchView, boolean enabled) {
         SettingsUtils.setEnabled(getActivity(), KEY_LOGO_ENABLE, enabled);
-        int logoModeValue = Integer.parseInt((String) mLogoControlMode.getValue());
-        String manualRedValue;
-        String manualGreenValue;
-        String manualBlueValue;
 
-        if (enabled) {
-            SettingsUtils.setEnabled(getActivity(), KEY_LOGO_ENABLE, enabled);
-            if (logoModeValue == LOGO_MODE_BREATH) {
-                FileUtils.writeLine(RED_LED_BLINK, "1");
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(GREEN_LED_BLINK, "1");
-                    }
-                }, 1000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(BLUE_LED_BLINK, "1");
-                    }
-                }, 2000);
-            } else if (logoModeValue == LOGO_MODE_MANUAL) {
-                manualRedValue = String.valueOf(SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, 1));
-                FileUtils.writeLine(RED_LED, manualRedValue);
-                manualGreenValue = String.valueOf(SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, 1));
-                FileUtils.writeLine(GREEN_LED, manualGreenValue);
-                manualBlueValue = String.valueOf(SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, 1));
-                FileUtils.writeLine(BLUE_LED, manualBlueValue);
-            }
-        } else {
-            FileUtils.writeLine(RED_LED_BLINK, "0");
-            FileUtils.writeLine(GREEN_LED_BLINK, "0");
-            FileUtils.writeLine(BLUE_LED_BLINK, "0");
-            FileUtils.writeLine(RED_LED, "0");
-            FileUtils.writeLine(GREEN_LED, "0");
-            FileUtils.writeLine(BLUE_LED, "0");
+        LogoUtil.turnOff();
+        if (!enabled) return;
+
+        int mode = Integer.parseInt((String) mLogoControlMode.getValue());
+        if (mode == LOGO_MODE_BREATH) {
+            enableBreathingMode();
+        } else if (mode == LOGO_MODE_MANUAL) {
+            enableManualMode();
         }
+    }
+
+    private void enableManualMode() {
+        mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
+        setSlidersVisibility(true);
+
+        final int r = SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, 1);
+        final int g = SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, 1);
+        final int b = SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, 1);
+        LogoUtil.setRGBStill(r, g, b);
+    }
+
+    private void enableBreathingMode() {
+        mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
+        setSlidersVisibility(false);
+        LogoUtil.enableBreathingEffect();
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         final String key = preference.getKey();
-        String intValueStr;
-        int intValue;
-
         if (KEY_LOGO_MODE_MANUAL_RED.equals(key)) {
-            intValue = (Integer) value;
-            intValueStr = String.valueOf(intValue);
-            mLogoManualBarRed.setValue(intValue);
-            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, intValue);
-            FileUtils.writeLine(RED_LED, intValueStr);
+            final int r = (Integer)value;
+            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, r);
+            LogoUtil.setStillRed(r);
+        } else if (KEY_LOGO_MODE_MANUAL_GREEN.equals(key)) {
+            final int g = (Integer)value;
+            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, g);
+            LogoUtil.setStillGreen(g);
+        } else if (KEY_LOGO_MODE_MANUAL_GREEN.equals(key)) {
+            final int b = (Integer)value;
+            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, b);
+            LogoUtil.setStillBlue(b);
         }
-
-        if (KEY_LOGO_MODE_MANUAL_GREEN.equals(key)) {
-            intValue = (Integer) value;
-            intValueStr = String.valueOf(intValue);
-            mLogoManualBarGreen.setValue(intValue);
-            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, intValue);
-            FileUtils.writeLine(GREEN_LED, intValueStr);
-        }
-
-        if (KEY_LOGO_MODE_MANUAL_BLUE.equals(key)) {
-            intValue = (Integer) value;
-            intValueStr = String.valueOf(intValue);
-            mLogoManualBarBlue.setValue(intValue);
-            SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, intValue);
-            FileUtils.writeLine(BLUE_LED, intValueStr);
-        }
-
         return true;
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (KEY_LOGO_MODE.equals(key)) {
-            int intValue = Integer.parseInt(sharedPreferences.getString(key, String.valueOf(LOGO_MODE_BREATH)));
-            mLogoControlMode.setValue(String.valueOf(intValue));
-            if (intValue == LOGO_MODE_BREATH) {
-                summary = getResources().getString(R.string.logo_control_breath_title);
-                mLogoManualBarRed.setVisible(false);
-                mLogoManualBarGreen.setVisible(false);
-                mLogoManualBarBlue.setVisible(false);
-                FileUtils.writeLine(RED_LED, "0");
-                FileUtils.writeLine(GREEN_LED, "0");
-                FileUtils.writeLine(BLUE_LED, "0");
-                FileUtils.writeLine(RED_LED_BLINK, "1");
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(GREEN_LED_BLINK, "1");
-                    }
-                }, 1000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(BLUE_LED_BLINK, "1");
-                    }
-                }, 2000);
-            } else if (intValue == LOGO_MODE_MANUAL) {
-                String manualRedValue = String.valueOf(SettingsUtils.getInt(getContext(), KEY_LOGO_MODE_MANUAL_RED, 1));
-                String manualGreenValue = String.valueOf(SettingsUtils.getInt(getContext(), KEY_LOGO_MODE_MANUAL_GREEN, 1));
-                String manualBlueValue = String.valueOf(SettingsUtils.getInt(getContext(), KEY_LOGO_MODE_MANUAL_BLUE, 1));
-                summary = getResources().getString(R.string.logo_control_manual_title);
-                mLogoManualBarRed.setVisible(true);
-                mLogoManualBarGreen.setVisible(true);
-                mLogoManualBarBlue.setVisible(true);
-                FileUtils.writeLine(RED_LED_BLINK, "0");
-                FileUtils.writeLine(GREEN_LED_BLINK, "0");
-                FileUtils.writeLine(BLUE_LED_BLINK, "0");
-                FileUtils.writeLine(RED_LED, manualRedValue);
-                FileUtils.writeLine(GREEN_LED, manualGreenValue);
-                FileUtils.writeLine(BLUE_LED, manualBlueValue);
-            }
-            mLogoControlMode.setSummary(summary);
+        if (!KEY_LOGO_MODE.equals(key)) return;
+        int mode = Integer.parseInt(sharedPreferences.getString(key, String.valueOf(LOGO_MODE_BREATH)));
+        mLogoControlMode.setValue(String.valueOf(mode));
+
+        // Reset everything before switching mode
+        LogoUtil.turnOff();
+
+        if (mode == LOGO_MODE_BREATH) {
+            enableBreathingMode();
+        } else if (mode == LOGO_MODE_MANUAL) {
+            enableManualMode();
         }
     }
 }

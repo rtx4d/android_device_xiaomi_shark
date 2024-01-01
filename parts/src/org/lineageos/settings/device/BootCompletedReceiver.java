@@ -21,13 +21,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.lineageos.settings.device.logo.LogoFragment;
-import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.utils.SettingsUtils;
+
+import org.lineageos.settings.device.logo.LogoUtil;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
@@ -42,38 +42,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         if (SettingsUtils.getEnabled(context, LogoFragment.KEY_LOGO_ENABLE)) {
             if (intValue == LogoFragment.LOGO_MODE_BREATH) {
-                FileUtils.writeLine(LogoFragment.RED_LED_BLINK, "1");
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(LogoFragment.GREEN_LED_BLINK, "1");
-                    }
-                }, 1000);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                FileUtils.writeLine(LogoFragment.BLUE_LED_BLINK, "1");
-                    }
-                }, 2000);
+                LogoUtil.enableBreathingEffect();
             } else if (intValue == LogoFragment.LOGO_MODE_MANUAL) {
-                String manualRedValue = String.valueOf(SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_RED, 1));
-                String manualGreenValue = String.valueOf(SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_GREEN, 1));
-                String manualBlueValue = String.valueOf(SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_BLUE, 1));
-                FileUtils.writeLine(LogoFragment.RED_LED_BLINK, "0");
-                FileUtils.writeLine(LogoFragment.GREEN_LED_BLINK, "0");
-                FileUtils.writeLine(LogoFragment.BLUE_LED_BLINK, "0");
-                FileUtils.writeLine(LogoFragment.RED_LED, manualRedValue);
-                FileUtils.writeLine(LogoFragment.GREEN_LED, manualGreenValue);
-                FileUtils.writeLine(LogoFragment.BLUE_LED, manualBlueValue);
+                final int r = SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_RED, 1);
+                final int g = SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_GREEN, 1);
+                final int b = SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_BLUE, 1);
+                LogoUtil.setRGBStill(r, g, b);
             }
         } else {
-        FileUtils.writeLine(LogoFragment.RED_LED_BLINK, "0");
-        FileUtils.writeLine(LogoFragment.GREEN_LED_BLINK, "0");
-        FileUtils.writeLine(LogoFragment.BLUE_LED_BLINK, "0");
-        FileUtils.writeLine(LogoFragment.RED_LED, "0");
-        FileUtils.writeLine(LogoFragment.GREEN_LED, "0");
-        FileUtils.writeLine(LogoFragment.BLUE_LED, "0");
+            LogoUtil.turnOff();
         }
     }
 }
