@@ -30,6 +30,16 @@
         <fqname>@3.0::IKeymasterDevice/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.secure_element</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISecureElement</name>
+            <instance>SIM1</instance>
+            <instance>eSE1</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>com.blackshark.alipay</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
