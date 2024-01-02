@@ -28,11 +28,75 @@
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
 
-    <!-- Fast brightness animation ramp rate in brightness units per second-->
-    <integer translatable="false" name="config_brightness_ramp_rate_fast">720</integer>
+    <!-- Array of desired screen brightness in nits corresponding to the lux values
+         in the config_autoBrightnessLevels array. The display brightness is defined as the measured
+         brightness of an all-white image.
 
-    <!-- Slow brightness animation ramp rate in brightness units per second-->
-    <integer translatable="false" name="config_brightness_ramp_rate_slow">240</integer>
+         If this is defined then:
+            - config_autoBrightnessLcdBacklightValues should not be defined
+            - config_screenBrightnessNits must be defined
+            - config_screenBrightnessBacklight must be defined
+
+         This array should have size one greater than the size of the config_autoBrightnessLevels
+         array. The brightness values must be non-negative and non-decreasing. This must be
+         overridden in platform specific overlays -->
+    <array name="config_autoBrightnessDisplayValuesNits">
+        <item>1.63</item>
+        <item>3.47</item>
+        <item>5.21</item>
+        <item>34.77</item>
+        <item>34.77</item>
+        <item>34.77</item>
+        <item>34.77</item>
+        <item>53.89</item>
+        <item>67.8</item>
+        <item>74.76</item>
+        <item>74.76</item>
+        <item>76.5</item>
+        <item>78.24</item>
+        <item>83.45</item>
+        <item>95.62</item>
+        <item>104.32</item>
+        <item>109.53</item>
+        <item>116.49</item>
+        <item>146.05</item>
+        <item>161.69</item>
+        <item>182.56</item>
+        <item>347.74</item>
+        <item>417.28</item>
+        <item>445</item>
+    </array>
+
+    <!-- Array of output values for LCD backlight corresponding to the LUX values
+         in the config_autoBrightnessLevels array.  This array should have size one greater
+         than the size of the config_autoBrightnessLevels array.
+         This must be overridden in platform specific overlays -->
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>15</item>
+        <item>32</item>
+        <item>48</item>
+        <item>320</item>
+        <item>320</item>
+        <item>320</item>
+        <item>320</item>
+        <item>496</item>
+        <item>624</item>
+        <item>688</item>
+        <item>688</item>
+        <item>704</item>
+        <item>720</item>
+        <item>768</item>
+        <item>880</item>
+        <item>960</item>
+        <item>1008</item>
+        <item>1072</item>
+        <item>1344</item>
+        <item>1488</item>
+        <item>1680</item>
+        <item>3200</item>
+        <item>3840</item>
+        <item>4095</item>
+    </integer-array>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -68,41 +132,11 @@
         <item>4000</item>
     </integer-array>
 
-    <!-- Array of output values for LCD backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>4</item>
-        <item>4</item>
-        <item>4</item>
-        <item>8</item>
-        <item>15</item>
-        <item>20</item>
-        <item>26</item>
-        <item>35</item>
-        <item>45</item>
-        <item>46</item>
-        <item>46</item>
-        <item>46</item>
-        <item>60</item>
-        <item>60</item>
-        <item>60</item>
-        <item>64</item>
-        <item>66</item>
-        <item>70</item>
-        <item>73</item>
-        <item>80</item>
-        <item>88</item>
-        <item>110</item>
-        <item>130</item>
-        <item>135</item>
-        <item>145</item>
-        <item>180</item>
-        <item>200</item>
-        <item>240</item>
-        <item>255</item>
-    </integer-array>
+    <!-- Fast brightness animation ramp rate in brightness units per second-->
+    <integer translatable="false" name="config_brightness_ramp_rate_fast">720</integer>
+
+    <!-- Slow brightness animation ramp rate in brightness units per second-->
+    <integer translatable="false" name="config_brightness_ramp_rate_slow">240</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
