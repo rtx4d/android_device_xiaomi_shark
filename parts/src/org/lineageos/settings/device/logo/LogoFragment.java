@@ -23,13 +23,14 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.widget.ImageButton;
 import android.widget.Switch;
+import android.view.View;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.ListPreference;
-import androidx.preference.Button;
 
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
@@ -73,10 +74,10 @@ public class LogoFragment extends PreferenceFragment implements
         mLogoManualBarBlue.setVisible(state);
     }
 
-    private void setButtonsVisibility(boolean state) {
-        mLogoMonoBreathRed.setVisible(state);
-        mLogoMonoBreathGreen.setVisible(state);
-        mLogoMonoBreathBlue.setVisible(state);
+    private void setButtonsVisibility(int value) {
+        mLogoMonoBreathRed.setVisibility(View.GONE);
+        mLogoMonoBreathGreen.setVisibility(View.GONE);
+        mLogoMonoBreathBlue.setVisibility(View.GONE);
     }
 
     @Override
@@ -107,17 +108,43 @@ public class LogoFragment extends PreferenceFragment implements
         final int mode = Integer.parseInt((String) mLogoControlMode.getValue());
         if (mode == LOGO_MODE_BREATH) {
             mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
-            setButtonsVisibility(false);
+            setButtonsVisibility(View.INVISIBLE);
             setSlidersVisibility(false);
         } else if (mode == LOGO_MODE_MANUAL) {
             mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
-            setButtonsVisibility(false);
+            setButtonsVisibility(View.INVISIBLE);
             setSlidersVisibility(true);
         } else if (mode == LOGO_MODE_MONO_BREATH) {
             mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_mono_breath_title));
-            setButtonsVisibility(true);
+            setButtonsVisibility(View.VISIBLE);
             setSlidersVisibility(false);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        mLogoMonoBreathRed = view.findViewById(R.id.BreathButtonRed);
+        mLogoMonoBreathGreen = view.findViewById(R.id.BreathButtonGreen);
+        mLogoMonoBreathBlue = view.findViewById(R.id.BreathButtonBlue);
+        
+        mLogoMonoBreathRed.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                LogoUtil.turnOff();
+                LogoUtil.setBlinkRed(true);
+            }
+        });
+        mLogoMonoBreathGreen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                LogoUtil.turnOff();
+                LogoUtil.setBlinkGreen(true);
+            }
+        });
+        mLogoMonoBreathBlue.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                LogoUtil.turnOff();
+                LogoUtil.setBlinkBlue(true);
+            }
+        });
     }
 
     @Override
@@ -153,7 +180,7 @@ public class LogoFragment extends PreferenceFragment implements
 
     private void enableManualMode() {
         mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
-        setButtonsVisibility(false);
+        setButtonsVisibility(View.INVISIBLE);
         setSlidersVisibility(true);
 
         final int r = SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, 1);
@@ -164,14 +191,14 @@ public class LogoFragment extends PreferenceFragment implements
 
     private void enableBreathingMode() {
         mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
-        setButtonsVisibility(false);
+        setButtonsVisibility(View.INVISIBLE);
         setSlidersVisibility(false);
         LogoUtil.enableBreathingEffect();
     }
 
     private void enableMonoBreathingMode() {
         mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_mono_breath_title));
-        setButtonsVisibility(true);
+        setButtonsVisibility(View.VISIBLE);
         setSlidersVisibility(false);
         LogoUtil.enableMonoBreathingEffect();
     }
