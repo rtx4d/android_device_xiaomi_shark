@@ -158,7 +158,7 @@ public class LogoFragment extends PreferenceFragment implements
             final int g = (Integer)value;
             SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_GREEN, g);
             LogoUtil.setStillGreen(g);
-        } else if (KEY_LOGO_MODE_MANUAL_GREEN.equals(key)) {
+        } else if (KEY_LOGO_MODE_MANUAL_BLUE.equals(key)) {
             final int b = (Integer)value;
             SettingsUtils.putInt(getActivity(), KEY_LOGO_MODE_MANUAL_BLUE, b);
             LogoUtil.setStillBlue(b);
