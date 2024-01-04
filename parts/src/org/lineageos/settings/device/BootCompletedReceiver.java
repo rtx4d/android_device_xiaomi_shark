@@ -48,6 +48,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 final int g = SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_GREEN, 1);
                 final int b = SettingsUtils.getInt(context, LogoFragment.KEY_LOGO_MODE_MANUAL_BLUE, 1);
                 LogoUtil.setRGBStill(r, g, b);
+            } else if (intValue == LogoFragment.LOGO_MODE_MONO_BREATH) {
+                LogoUtil.enableMonoBreathingEffect();
             }
         } else {
             LogoUtil.turnOff();

@@ -29,6 +29,7 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.ListPreference;
+import androidx.preference.Button;
 
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
@@ -48,13 +49,18 @@ public class LogoFragment extends PreferenceFragment implements
     public static final String KEY_LOGO_MODE_MANUAL_GREEN = "logo_control_manual_green";
     public static final String KEY_LOGO_MODE_MANUAL_BLUE = "logo_control_manual_blue";
     public static final String KEY_LOGO_MODE_BREATH = "logo_control_breath";
+    public static final String KEY_LOGO_MODE_MONO_BREATH = "logo_control_mono_breath";
 
     public static final int LOGO_MODE_BREATH = 1;
     public static final int LOGO_MODE_MANUAL = 2;
+    public static final int LOGO_MODE_MONO_BREATH = 3;
     private static final int LOGO_DISABLED_VALUE = 0;
     private static final int LOGO_MIN_VALUE = 1;
     private static final int LOGO_MAX_VALUE = 255;
 
+    private ImageButton mLogoMonoBreathRed;
+    private ImageButton mLogoMonoBreathGreen;
+    private ImageButton mLogoMonoBreathBlue;
     private MainSwitchPreference mSwitchBar;
     private ListPreference mLogoControlMode;
     private SeekBarPreference mLogoManualBarRed;
@@ -65,6 +71,12 @@ public class LogoFragment extends PreferenceFragment implements
         mLogoManualBarRed.setVisible(state);
         mLogoManualBarGreen.setVisible(state);
         mLogoManualBarBlue.setVisible(state);
+    }
+
+    private void setButtonsVisibility(boolean state) {
+        mLogoMonoBreathRed.setVisible(state);
+        mLogoMonoBreathGreen.setVisible(state);
+        mLogoMonoBreathBlue.setVisible(state);
     }
 
     @Override
@@ -95,10 +107,16 @@ public class LogoFragment extends PreferenceFragment implements
         final int mode = Integer.parseInt((String) mLogoControlMode.getValue());
         if (mode == LOGO_MODE_BREATH) {
             mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
+            setButtonsVisibility(false);
             setSlidersVisibility(false);
         } else if (mode == LOGO_MODE_MANUAL) {
             mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
+            setButtonsVisibility(false);
             setSlidersVisibility(true);
+        } else if (mode == LOGO_MODE_MONO_BREATH) {
+            mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_mono_breath_title));
+            setButtonsVisibility(true);
+            setSlidersVisibility(false);
         }
     }
 
@@ -128,11 +146,14 @@ public class LogoFragment extends PreferenceFragment implements
             enableBreathingMode();
         } else if (mode == LOGO_MODE_MANUAL) {
             enableManualMode();
+        } else if (mode == LOGO_MODE_MONO_BREATH) {
+            enableMonoBreathingMode();
         }
     }
 
     private void enableManualMode() {
         mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_manual_title));
+        setButtonsVisibility(false);
         setSlidersVisibility(true);
 
         final int r = SettingsUtils.getInt(getActivity(), KEY_LOGO_MODE_MANUAL_RED, 1);
@@ -143,8 +164,16 @@ public class LogoFragment extends PreferenceFragment implements
 
     private void enableBreathingMode() {
         mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_breath_title));
+        setButtonsVisibility(false);
         setSlidersVisibility(false);
         LogoUtil.enableBreathingEffect();
+    }
+
+    private void enableMonoBreathingMode() {
+        mLogoControlMode.setSummary(getResources().getString(R.string.logo_control_mono_breath_title));
+        setButtonsVisibility(true);
+        setSlidersVisibility(false);
+        LogoUtil.enableMonoBreathingEffect();
     }
 
     @Override
@@ -179,6 +208,8 @@ public class LogoFragment extends PreferenceFragment implements
             enableBreathingMode();
         } else if (mode == LOGO_MODE_MANUAL) {
             enableManualMode();
+        } else if (mode == LOGO_MODE_MONO_BREATH) {
+            enableMonoBreathingMode();
         }
     }
 }

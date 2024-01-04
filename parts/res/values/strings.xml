@@ -23,6 +23,7 @@
     <string name="logo_control_summary">Change the behaviour of rear LED logo</string>
     <string name="logo_control_breath_title">Breathing RGB</string>
     <string name="logo_control_manual_title">Manual</string>
+    <string name="logo_control_mono_breath_title">Mono Breathing</string>
     <string name="logo_control_intensity_title_red">Red</string>
     <string name="logo_control_intensity_title_green">Green</string>
     <string name="logo_control_intensity_title_blue">Blue</string>

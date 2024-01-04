@@ -67,4 +67,7 @@ public class LogoUtil {
             }
         }, 2000);
     }
+    public static void enableMonoBreathingEffect() {
+        final Handler handler = new Handler();
+    }
 }

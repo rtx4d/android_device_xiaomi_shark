@@ -53,4 +53,41 @@
         android:persistent="false"
         android:dependency="logo_control_enable" />
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/BreathButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <ImageButton
+        android:id="@+id/BreathButtonRed"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/BreathButtonGreen"
+        android:src="@drawable/roundedbutton"
+        android:padding="25dp"
+        app:tint="#FF0000" />
+    <ImageButton
+        android:id="@+id/BreathButtonGreen"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true"
+        android:padding="25dp"
+        android:src="@drawable/roundedbutton"
+        app:tint="#00FF00" />
+    <ImageButton
+        android:id="@+id/BreathButtonBlue"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/BreathButtonGreen"
+        android:src="@drawable/roundedbutton"
+        android:padding="25dp"
+        app:tint="#0022FF" />
+    </RelativeLayout>
 </PreferenceScreen>
