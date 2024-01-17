@@ -25,7 +25,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.widget.CompoundButton;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.ListPreference;
@@ -38,7 +38,7 @@ import org.lineageos.settings.utils.SettingsUtils;
 
 import org.lineageos.settings.logo.LogoUtil;
 
-public class LogoFragment extends PreferenceFragment implements
+public class LogoFragment extends PreferenceFragmentCompat implements
         Preference.OnPreferenceChangeListener, CompoundButton.OnCheckedChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String KEY_LOGO_ENABLE = "logo_control_enable";
@@ -68,7 +68,7 @@ public class LogoFragment extends PreferenceFragment implements
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.logo);
+        setPreferencesFromResource(R.xml.logo, rootKey);
 
         mSwitchBar = (MainSwitchPreference) findPreference(KEY_LOGO_ENABLE);
         mSwitchBar.setChecked(SettingsUtils.getEnabled(getActivity(), KEY_LOGO_ENABLE));

@@ -16,12 +16,12 @@
 
 package org.lineageos.settings;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.preference.PreferenceFragment;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.Preference;
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceCategory;
@@ -39,17 +39,17 @@ public class SharkParts extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Fragment fragment = getFragmentManager().findFragmentById(com.android.settingslib.collapsingtoolbar.R.id.content_frame);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(com.android.settingslib.collapsingtoolbar.R.id.content_frame);
         SharkPartsFragment mSharkPartsFragment;
         if (fragment == null) {
             mSharkPartsFragment = new SharkPartsFragment();
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(com.android.settingslib.collapsingtoolbar.R.id.content_frame, mSharkPartsFragment)
                     .commit();
         }
     }
 
-    public static class SharkPartsFragment extends PreferenceFragment implements
+    public static class SharkPartsFragment extends PreferenceFragmentCompat implements
         Preference.OnPreferenceChangeListener {
 
         @Override

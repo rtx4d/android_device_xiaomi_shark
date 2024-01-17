@@ -25,7 +25,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.widget.CompoundButton;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.ListPreference;
@@ -38,7 +38,7 @@ import org.lineageos.settings.utils.SettingsUtils;
 
 import org.lineageos.settings.speaker.SpeakerUtil;
 
-public class SpeakerFragment extends PreferenceFragment implements
+public class SpeakerFragment extends PreferenceFragmentCompat implements
         Preference.OnPreferenceChangeListener, CompoundButton.OnCheckedChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String KEY_SPEAKER_TWEAKS_ENABLE = "speaker_tweaks_enable";
@@ -74,7 +74,7 @@ public class SpeakerFragment extends PreferenceFragment implements
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.speaker);
+        setPreferencesFromResource(R.xml.speaker, rootKey);
 
         mSwitchBar = (MainSwitchPreference) findPreference(KEY_SPEAKER_TWEAKS_ENABLE);
         mSwitchBar.setChecked(SettingsUtils.getEnabled(getActivity(), KEY_SPEAKER_TWEAKS_ENABLE));
