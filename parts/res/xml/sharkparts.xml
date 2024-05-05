@@ -24,4 +24,11 @@
         android:icon="@drawable/logo"
         android:summary="@string/logo_control_summary"
         android:title="@string/logo_control_title" />
+
+     <PreferenceScreen
+        android:key="speaker"
+        android:fragment="org.lineageos.settings.device.speaker.SpeakerActivity"
+        android:icon="@drawable/speaker"
+        android:summary="@string/speaker_control_summary"
+        android:title="@string/speaker_control_title" />
 </PreferenceScreen>

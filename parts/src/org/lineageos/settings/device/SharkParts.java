@@ -32,6 +32,7 @@ import androidx.preference.TwoStatePreference;
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
 import org.lineageos.settings.device.logo.LogoActivity;
+import org.lineageos.settings.device.speaker.SpeakerActivity;
 
 public class SharkParts extends CollapsingToolbarBaseActivity {
     @Override
@@ -59,6 +60,16 @@ public class SharkParts extends CollapsingToolbarBaseActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(getContext(), LogoActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
+            Preference mSpeakerPref = findPreference("speaker");
+            mSpeakerPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(getContext(), SpeakerActivity.class);
                     startActivity(intent);
                     return true;
                 }

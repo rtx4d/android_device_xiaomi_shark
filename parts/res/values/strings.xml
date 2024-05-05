@@ -26,4 +26,20 @@
     <string name="logo_control_intensity_title_red">Red</string>
     <string name="logo_control_intensity_title_green">Green</string>
     <string name="logo_control_intensity_title_blue">Blue</string>
+
+    <!-- Speaker -->
+    <string name="speaker_control_title">Speaker tweaks</string>
+    <string name="speaker_control_summary">Enable built-in EQ or game mode</string>
+    <string name="speaker_control_enable_title">Enabled</string>
+    <string name="speaker_control_eq_title">Equalizer</string>
+    <string name="speaker_control_eq_band_0">256 Hz</string>
+    <string name="speaker_control_eq_band_1">512 Hz</string>
+    <string name="speaker_control_eq_band_2">1024 Hz</string>
+    <string name="speaker_control_eq_band_3">2048 Hz</string>
+    <string name="speaker_control_eq_band_4">4096 Hz</string>
+    <string name="speaker_control_gamemode_title">Game mode</string>
+    <string name="speaker_control_gamemode_0">Disabled</string>
+    <string name="speaker_control_gamemode_1">Default</string>
+    <string name="speaker_control_gamemode_2">Shooter</string>
+    <string name="speaker_control_footer">If game mode is enabled, EQ will not be working. To apply changes immediately, you can restart playback, if something was playing.</string>
 </resources>

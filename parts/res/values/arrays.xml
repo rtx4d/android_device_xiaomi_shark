@@ -22,4 +22,16 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
+    <string-array name="speaker_control_gamemode_entries" translatable="false">
+        <item>@string/speaker_control_gamemode_0</item>
+        <item>@string/speaker_control_gamemode_1</item>
+        <item>@string/speaker_control_gamemode_2</item>
+    </string-array>
+
+    <string-array name="speaker_control_gamemode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

@@ -62,8 +62,38 @@
 
         <activity
             android:name=".logo.LogoActivity"
-            android:label="@string/logo_control_title">
+            android:label="@string/logo_control_title"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
         </activity>
+
+        <activity
+            android:name=".speaker.SpeakerActivity"
+            android:label="@string/speaker_control_title">
+        </activity>
+
+        <service
+                android:exported="true"
+                android:name=".logo.QsService"
+                android:icon="@drawable/logo"
+                android:label="@string/logo_control_title"
+                android:foregroundServiceType="specialUse"
+                android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="tile" />
+        </service>
 
         <activity android:name=".KeyHandler" />
 

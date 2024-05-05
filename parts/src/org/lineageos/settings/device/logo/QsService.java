@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2015 The CyanogenMod Project
- *               2017-2019 The LineageOS Project
+ * Copyright (C) 2024 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,33 +14,52 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.device;
+package org.lineageos.settings.device.logo;
+
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.os.Bundle;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import android.content.IntentFilter;
+import android.graphics.drawable.Icon;
+import android.os.Build;
+import android.service.quicksettings.Tile;
+import android.service.quicksettings.TileService;
 
 import org.lineageos.settings.device.logo.LogoFragment;
+import org.lineageos.settings.device.logo.LogoUtil;
+import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.SettingsUtils;
 
-import org.lineageos.settings.device.logo.LogoUtil;
-import org.lineageos.settings.device.speaker.SpeakerUtil;
-
-public class BootCompletedReceiver extends BroadcastReceiver {
-
-    private static final boolean DEBUG = false;
-    private static final String TAG = "SharkParts";
+public class QsService extends TileService {
+    private void updateState() {
+        final boolean enabled = SettingsUtils.getEnabled(getApplicationContext(), LogoFragment.KEY_LOGO_ENABLE);
+        getQsTile().setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        getQsTile().setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.logo));
+        getQsTile().setLabel(getString(R.string.logo_control_title));
+        getQsTile().updateTile();
+    }
 
     @Override
-    public void onReceive(final Context context, Intent intent) {
-        if (DEBUG) Log.d(TAG, "Received boot completed intent");
+    public void onStartListening() {
+        super.onStartListening();
+        updateState();
+    }
+
+    @Override
+    public void onClick() {
+        super.onClick();
+        final Context context = getApplicationContext();
+
+        boolean enabled = !SettingsUtils.getEnabled(context, LogoFragment.KEY_LOGO_ENABLE);
+        SettingsUtils.setEnabled(context, LogoFragment.KEY_LOGO_ENABLE, enabled);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         int intValue = Integer.parseInt(sharedPreferences.getString(LogoFragment.KEY_LOGO_MODE, String.valueOf(LogoFragment.LOGO_MODE_BREATH)));
-
-        if (SettingsUtils.getEnabled(context, LogoFragment.KEY_LOGO_ENABLE)) {
+        if (enabled) {
             if (intValue == LogoFragment.LOGO_MODE_BREATH) {
                 LogoUtil.enableBreathingEffect();
             } else if (intValue == LogoFragment.LOGO_MODE_MANUAL) {
@@ -54,6 +72,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             LogoUtil.turnOff();
         }
 
-        SpeakerUtil.initInjector(context);
+        updateState();
     }
 }
