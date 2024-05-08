@@ -355,6 +355,9 @@ vendor/lib/vendor.qti.gnss@2.0.so
 vendor/lib/vendor.qti.gnss@2.1.so
 vendor/lib/vendor.qti.gnss@3.0.so
 
+# GNSS - from polaris V12.0.3.0.QDGMIXM
+vendor/lib64/libdataitems.so|6b785e73dac14d62bec0159f3eb0b49d4a995e06
+
 # Graphics (Adreno firmware)
 vendor/firmware/a630_gmu.bin
 vendor/firmware/a630_sqe.fw
