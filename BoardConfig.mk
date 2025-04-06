@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018-2024 The LineageOS Project
+# Copyright (C) 2018-2025 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -114,7 +114,7 @@ TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 
 # Recovery
 BOARD_USES_RECOVERY_AS_BOOT := true
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 
 # Releasetools
