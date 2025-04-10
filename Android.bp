@@ -8,7 +8,6 @@ soong_namespace {
         "hardware/google/interfaces",
         "hardware/google/pixel",
         "hardware/xiaomi",
-        "hardware/qcom/bootctrl",
     ],
 }
 
