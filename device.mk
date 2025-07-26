@@ -339,10 +339,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-# Tethering
-PRODUCT_PACKAGES += \
-    TetheringConfigOverlay
-
 # Treble
 PRODUCT_USE_VNDK_OVERRIDE := true
 
