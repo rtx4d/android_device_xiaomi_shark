@@ -34,7 +34,7 @@
 
 #<src>                                                 <mnt_point>               <type>  <mnt_flags and options>                              <fs_mgr_flags>
 /dev/block/by-name/system                               /system                   ext4    ro,barrier=1,discard                                 wait,slotselect,avb,first_stage_mount
-/dev/block/bootdevice/by-name/userdata                  /data                     ext4    noatime,nosuid,nodev,barrier=0,noauto_da_alloc,errors=continue latemount,wait,check,fileencryption=ice,quota
+/dev/block/bootdevice/by-name/userdata                  /data                     ext4    noatime,nosuid,nodev,barrier=0,noauto_da_alloc,errors=continue latemount,wait,check,fileencryption=ice,quota,formattable
 /dev/block/by-name/vendor                               /vendor                   ext4    ro,barrier=1,discard                                 wait,slotselect,avb,first_stage_mount
 /dev/block/bootdevice/by-name/boot                      /boot                     emmc    defaults                                             slotselect,recoveryonly
 
